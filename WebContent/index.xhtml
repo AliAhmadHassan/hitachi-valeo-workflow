@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view>
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css"
+			href="#{facesContext.externalContext.requestContextPath}/static/css/fioriLogin.css?v=#{initParam['build']}" />
+		<link rel="shortcut icon"
+			href="#{facesContext.externalContext.requestContextPath}/static/images/netshoesN.png" />
+		<title><ui:insert name="title">Portal Financeiro</ui:insert></title>
+	</h:head>
+	<h:body id="Body">
+		<h:form id="form" prependId="false">
+				
+				<p:dialog id="ajaxStatus" widgetVar="ajaxStatus" modal="true"
+					closable="false" draggable="false" resizable="false" style="visibility: hidden; cursor: progress;">
+					<img
+						src="#{facesContext.externalContext.requestContextPath}/static/images/carregandoAguarde.gif" />
+				</p:dialog>
+				
+		
+			<div id="screenMask" />
+			<div id="login">
+				<div >
+					<h:outputText value="#{msg.LabelUsuario}" />
+					<div>
+						<p:inputText id="txtLogin" value="#{usuarioBean.txtUsuario}"
+							></p:inputText>
+					</div>
+				</div>
+				<div>
+					<h:outputText class="sapMLabel" value="#{msg.LabelSenha}" />
+					<div>
+						<p:inputText id="txtSenha" type="password"
+							value="#{usuarioBean.txtSenha}"></p:inputText>
+					</div>
+				</div>
+
+				<div>
+					<p:commandButton value="#{msg.btnLogin}" id="btnLogar"
+						actionListener="#{usuarioBean.autentica}" onclick="PF('ajaxStatus').show()" update=":form:msgs"/>
+
+				</div>
+				<div>
+					<p:commandButton value="#{msg.btnSolicitaNovaSenha}" id="btnSolicitaNovaSenha"
+						actionListener="#{usuarioBean.solicitarEMail}"
+						oncomplete=":form:msgs" />
+				</div>
+			</div>
+			<div>
+				<div>
+ 
+				</div>
+				<div>
+					<h:outputText value="#{msg.LabelFooter}"></h:outputText>
+				</div>
+			</div>
+			<div style="font-size: xx-small;">
+				<p:growl id="msgs" showDetail="true" />
+			</div> 
+ 		
+		</h:form>
+	</h:body>
+</f:view>
+</html>

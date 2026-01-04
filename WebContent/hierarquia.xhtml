@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/static/js/loader.js"></script>
+	<script type="text/javascript"
+		src="#{facesContext.externalContext.requestContextPath}/static/js/workflow.orgchart.js"></script>
+	<link rel="stylesheet" type="text/css"
+		href="#{facesContext.externalContext.requestContextPath}/static/css/login.css" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous" />
+	<title>Valeo Service - Login</title>
+
+</h:head>
+<h:body onload="drawChart()">
+	<h:form id="form">
+		<div id="chart_div"></div>
+
+		<p:growl id="growl" life="2000" />
+		
+		<p:outputPanel rendered="#{empty hierarquiaBean.grupos}">
+			<p:panel>
+				<h:outputLabel value="Qual o Topo da Hierarquia?"/>
+				<br/>
+				<h:selectOneListbox value="#{hierarquiaBean.grupoSelected}" >
+					<f:selectItems value="#{hierarquiaBean.opcaoGrupos}" var="grp" itemLabel="#{grp.nome}" itemValue="#{grp.idGrupo}"></f:selectItems>
+				</h:selectOneListbox>
+				<br/>
+				<h:commandButton value="Salvar" actionListener="#{hierarquiaBean.salvar}"/>
+			</p:panel>
+		</p:outputPanel>
+
+		<p:outputPanel id="organograma" rendered="#{not empty hierarquiaBean.grupos}">
+
+			<script type="text/javascript">
+			google.charts.load('current', {
+				packages : [ "orgchart" ]
+			});
+			google.charts.setOnLoadCallback(drawChart);
+	
+			function drawChart() {
+				var data = new google.visualization.DataTable();
+				data.addColumn('string', 'Name');
+				data.addColumn('string', 'Manager');
+				data.addColumn('string', 'ToolTip');
+	
+				// For each orgchart box, provide the name, manager, and tooltip to show.
+				
+				data.addRows(#{hierarquiaBean.estrutura});
+	
+				// Create the chart.
+				var chart = new google.visualization.OrgChart(document
+						.getElementById('chart_div'));
+				// Draw the chart, setting the allowHtml option to true for the tooltips.
+				chart.draw(data, {
+					allowHtml : true
+				});
+			}
+		</script>
+		</p:outputPanel>
+		<p:remoteCommand name="hdnBtnNovo"
+			actionListener="#{hierarquiaBean.seleciona}"
+			update=":form:hdnInputId :form:NovoPanelView"
+			oncomplete="PF('dlgNovo').show()"></p:remoteCommand>
+		<p:remoteCommand name="hdnBtnRemover"
+			actionListener="#{hierarquiaBean.seleciona}"
+			update=":form:hdnInputId :form:RemovePanelView"
+			oncomplete="PF('dlgRemove').show()"></p:remoteCommand>
+
+		<h:inputHidden id="hdnInputId" value="#{hierarquiaBean.idSelected}" />
+
+		<p:dialog id="dlgNovo" closeOnEscape="true"
+			header="Definir Subordinado" widgetVar="dlgNovo" modal="true">
+			<p:outputPanel id="NovoPanelView">
+				<!--<h:inputText value="#{hierarquiaBean.descricaoSelecionado}" />  -->
+				<h:selectOneListbox value="#{hierarquiaBean.grupoSelected2}" >
+					<f:selectItems value="#{hierarquiaBean.opcaoGruposNaoSelecionado}" var="grp" itemLabel="#{grp.nome}" itemValue="#{grp.idGrupo}"></f:selectItems>
+				</h:selectOneListbox>
+				<br />
+				<p:commandButton actionListener="#{hierarquiaBean.adicionar}"
+					value="Confirmar" update="@form" oncomplete="PF('dlgNovo').hide()" />
+				<p:commandButton value="Cancelar" oncomplete="PF('dlgNovo').hide()" />
+			</p:outputPanel>
+		</p:dialog>
+
+		<p:dialog id="dlgRemove" closeOnEscape="true"
+			header="Definir Subordinado" widgetVar="dlgRemove" modal="true">
+			<p:outputPanel id="RemovePanelView">
+				<br />
+				<p:commandButton actionListener="#{hierarquiaBean.remover}"
+					update="@form" oncomplete="PF('dlgRemove').hide()" value="Sim" />
+				<p:commandButton oncomplete="PF('dlgRemove').hide()" value="Não" />
+			</p:outputPanel>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

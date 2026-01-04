@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="templates/master.xhtml">
+	<ui:define name="header">
+		 Cadastro de Grupos
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="form" name="form" prependId="false">
+
+			<p:spacer height="30px" />
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable id="recordsTable" var="record"
+				value="#{cadastroGrupoBean.records}">
+
+				<p:column headerText="Nome" style="font-weight:bold">
+					<h:outputText value="#{record.nome}" />
+				</p:column>
+
+				<p:column headerText="Admin." style="font-weight:bold; text-align:center">
+				<p:outputLabel  rendered="#{record.adm}">
+					<img src="#{facesContext.externalContext.requestContextPath}/static/images/true.png" style="width: 24px" />
+					</p:outputLabel>
+				</p:column>
+
+				<p:column headerText="cod." style="font-weight:bold">
+					<h:outputText value="#{record.idGrupo}" />
+				</p:column>
+
+				<p:column style="font-weight:bold;width:16px;text-align:center">
+					<p:commandLink update=":form:GrupoPanelAlter"
+						oncomplete="PF('dlgGrupo').show()">
+						<f:setPropertyActionListener value="#{record}"
+							target="#{cadastroGrupoBean.record}" />
+						<f:setPropertyActionListener value="false"
+							target="#{cadastroGrupoBean.novoContato}" />
+						<img src="static/images/editIcon16.png"
+							style="padding-right: 5px;" />
+
+					</p:commandLink>
+				</p:column>
+
+			</p:dataTable>
+
+
+			<div  style="text-align:right; padding:10px">
+				<p:commandLink update=":form:GrupoPanelAlter"
+					oncomplete="PF('dlgGrupo').show()">
+					<f:setPropertyActionListener value="true"
+						target="#{cadastroGrupoBean.novoContato}" />
+					<img src="static/images/add.png" width="40px"  />
+
+				</p:commandLink>
+			</div>
+
+			<p:dialog id="dlgGrupo" closeOnEscape="true"
+				header="Cadastro Grupo"
+				widgetVar="dlgGrupo" modal="true"
+				>
+				<p:outputPanel id="GrupoPanelAlter"
+					style="overflow-x: hidden; overflow-y: hidden;">
+					
+					<p:panelGrid columns="2">
+						<h:outputLabel value="Nome" />
+						<p:inputText value="#{cadastroGrupoBean.record.nome}"/>
+
+						<h:outputLabel value="Administrador" />
+						<p:selectBooleanCheckbox value="#{cadastroGrupoBean.record.adm}"/>
+					
+						<p:commandButton value="Salvar" actionListener="#{cadastroGrupoBean.salvar}"
+						update=":form:msgs :form:recordsTable" style="width:100%" />
+					</p:panelGrid>
+					
+				</p:outputPanel>
+			</p:dialog>
+
+		</h:form>
+
+
+	</ui:define>
+	<ui:define name="footer">
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence">
+	<persistence-unit name="PERSISTENCE">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>br.com.valeoservice.model.Grupo</class>
+		<class>br.com.valeoservice.model.HierarquiaCabecalho</class>
+		<class>br.com.valeoservice.model.HierarquiaItem</class>
+		<class>br.com.valeoservice.model.Pedido</class>
+		<class>br.com.valeoservice.model.PedidoAprovacao</class>
+		<class>br.com.valeoservice.model.Usuario</class>
+	
+	   
+
+    <properties>
+      <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" />
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql01.valeoservice.hospedagemdesites.ws:3306/valeoservice" />
+      <property name="javax.persistence.jdbc.user" value="valeoservice" />
+      <property name="javax.persistence.jdbc.password" value="v4l30srv" />
+      <property name="hibernate.show_sql" value="true" />
+      <property name="hibernate.hbm2ddl.auto" value="update" />
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+    </properties>
+	</persistence-unit>
+</persistence>

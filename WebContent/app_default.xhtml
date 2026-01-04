@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="templates/master.xhtml">
+	<ui:define name="header">
+
+	</ui:define>
+	<ui:define name="content">
+		<center>
+			<h:form id="form" name="form" prependId="false">
+				<p:messages id="messages" />
+				<table style="margin-top: 150px">
+					<tr>
+						<td><h:outputLabel for="nomeUsuario" value="E-Mail:"
+								style="font-weight: bold;" /></td>
+						<td><p:inputText id="nomeUsuario"
+								value="#{loginBean.usuario.eMail}" /></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="senha" value="Senha:"
+								style="font-weight: bold;" /></td>
+						<td><p:inputText type="password" id="senha"
+								value="#{loginBean.usuario.senha}" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="text-align: right;"><h:commandButton value="Logar"
+								icon="ui-icon-star right" action="#{loginBean.envia}"
+								ajax="false">
+							</h:commandButton></td>
+					</tr>
+				</table>
+			</h:form>
+		</center>
+	</ui:define>
+	<ui:define name="footer">
+	</ui:define>
+</ui:composition>
+</html>

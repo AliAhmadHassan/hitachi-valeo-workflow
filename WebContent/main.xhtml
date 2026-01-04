@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="templates/master.xhtml">
+	<ui:define name="header">
+	</ui:define>
+	<ui:define name="content">
+		<center>
+			<h:form id="form" name="form" prependId="false">
+				<div class="menu">
+				<p:outputLabel rendered="#{loginBean.grupoSession.adm}" >
+					<div class="menuPainel">
+						<i class="icon-user"></i>
+						<div class="menuNome">
+							<a href="cadastroUsuarios.xhtml" style="text-align: center;">
+									<img
+										src="#{facesContext.externalContext.requestContextPath}/static/images/user.png"
+										 title="Cadastro Usuario" /> 
+										<br /><br />
+										Cadastro Usuario
+								
+							</a>
+						</div>
+					</div>
+					</p:outputLabel>
+					<p:outputLabel rendered="#{loginBean.grupoSession.adm}">
+					<div class="menuPainel">
+						<div class="menuNome">
+							<a href="cadastroGrupos.xhtml"><img
+										src="#{facesContext.externalContext.requestContextPath}/static/images/group.png"
+										 title="Cadastro Grupos" /> 
+										<br /><br />
+										Cadastro Grupos</a>
+						</div>
+					</div>
+					</p:outputLabel>
+					<p:outputLabel rendered="#{loginBean.grupoSession.adm}">
+					<div class="menuPainel">
+						<div class="menuNome">
+							<a href="cadastroHierarquiaCabecalhos.xhtml"><img
+										src="#{facesContext.externalContext.requestContextPath}/static/images/workflow.png"
+										 title="Cadastro Hierarquias" style="width:152px" /> 
+										<br /><br />
+										Cadastro
+								Hierarquia</a>
+						</div>
+					</div>
+					</p:outputLabel>
+					<div class="menuPainel">
+						<div class="menuNome">
+							<a href="pedidos.xhtml"><img
+										src="#{facesContext.externalContext.requestContextPath}/static/images/report.png"
+										 title="Formulario para Aprovação" /> 
+										<br /><br />
+										Formulario para Aprovação</a>
+						</div>
+					</div>
+				</div>
+			</h:form>
+		</center>
+	</ui:define>
+	<ui:define name="footer">
+	</ui:define>
+</ui:composition>
+</html>

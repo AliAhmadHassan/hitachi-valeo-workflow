@@ -1,0 +1,20 @@
+@CHARSET "ISO-8859-1";
+
+body{
+	padding: 0px;
+	width: 100%;
+}
+
+.titulo{
+	background-image: url(../images/titulo1px.png);
+	width: 100%;
+	height:120px;
+}
+
+.orgchart-icon{
+	width: 16px;
+}
+
+#chart_div table{
+	        border-collapse: initial;
+}

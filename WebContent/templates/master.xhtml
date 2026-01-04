@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<f:view>
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="static/css/master.css" />
+		<title><ui:insert name="title">Valeo Service - Workflow</ui:insert></title>
+	</h:head>
+
+	<h:body>
+		<div id="header">
+			<table>
+				<tr>
+					<td><a href="main.xhtml"> <img
+							src="static/images/logo-white.png" alt="" /></a></td>
+					<td
+						style="text-align: left; width: 100%; padding-left: 20px; color: white; font-size: x-large;">
+						<ui:insert name="header">
+						</ui:insert>
+					</td>
+					<td>
+					<p:outputPanel rendered="#{loginBean.logado}">
+						<table style="height: 78px; padding-left: 10px;">
+							<tr>
+								<td style="border-left: solid 1px white;"><div
+										style="color: white; font-size: x-large; padding: 10px;">
+										<h:form id="formLogoff">
+											<p:commandLink onclick="PF('dlgLogoff').show()"
+												style="color:white;">
+												<img
+													src="#{facesContext.externalContext.requestContextPath}/static/images/logoff2.png"
+													style="height: 27px;" title="Sair" />
+											</p:commandLink>
+										</h:form>
+
+									</div></td>
+							</tr>
+						</table>
+						</p:outputPanel>
+					</td>
+				</tr>
+			</table>
+			<p:dialog widgetVar="dlgLogoff" modal="true" header="Atenção"
+				resizable="false">
+				<p:outputPanel>
+				Realmente deseja sair do Sistema?<br />
+					<br />
+					<div>
+						<center>
+							<p:commandButton value="Sim"
+								actionListener="#{loginBean.logoff}"
+								oncomplete="PF('dlgLogoff').hide()" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<p:commandButton value="Não" onclick="PF('dlgLogoff').hide()" />
+						</center>
+					</div>
+				</p:outputPanel>
+			</p:dialog>
+
+		</div>
+
+
+		<div id="content">
+			<ui:insert name="content">
+	    	Content area.  See comments below this line in the source.
+	    		<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
+				<!-- <div> -->
+				<!-- <ui:include src="content.xhtml"/> -->
+				<!-- </div> -->
+			</ui:insert>
+		</div>
+
+		<div id="footer">
+			<ui:insert name="footer">
+    			Portal de Fornecedores Vers&atilde;o 2014 - Build 01.00 - Powered by Netshoes 
+    			<!--  include your header file or uncomment the include below and create footer.xhtml in this directory -->
+				<!--<ui:include src="footer.xhtml"/>  -->
+			</ui:insert>
+		</div>
+
+	</h:body>
+</f:view>
+</html>
